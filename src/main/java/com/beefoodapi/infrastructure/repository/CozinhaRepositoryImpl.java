@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,9 +46,14 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 		 * contexto de persistencia*/
 		@Transactional
 		@Override
-		public void remover(Cozinha cozinha) {
+		public void remover(Long id) {
 			//implementando o metodo buscar pelo id, ou seja, fazendo um find e chamando o remove
-			cozinha = porId(cozinha.getId());
+			Cozinha cozinha = porId(id);
+			//fazendo uma verificacao
+			if(cozinha == null) {
+				//lancar uma exception com ao menos 1 cozinha
+				throw new  EmptyResultDataAccessException(1);
+			}
 			manager.remove(cozinha);
 		}
 }

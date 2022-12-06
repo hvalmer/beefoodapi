@@ -6,8 +6,9 @@ import com.beefoodapi.domain.model.Cidade;
 
 public interface CidadeRepository {
 
+	//construindo o negocio em vez da implementacao
 	List<Cidade> todos();
 	Cidade porId(Long id);
 	Cidade adicionar(Cidade cidade);
-	void remover(Cidade cidade);
+	void remover(Long id);
 }
